@@ -1,0 +1,22 @@
+[project]
+name = "ai-stock-analyser"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "deepeval>=4.2.3",
+    "growwapi>=1.5.0",
+    "langchain>=1.4.1",
+    "langchain-community>=0.4.2",
+    "langchain-core>=1.6.3",
+    "langchain-google-genai>=4.4.0",
+    "langchain-mcp-adapters>=0.3.2",
+    "langchain-openai>=1.6.2",
+    "langgraph>=1.2.11",
+    "langgraph-checkpoint>=4.2.0",
+    "pandas>=2.3.3",
+    "pydantic>=2.13.5",
+    "pyotp>=2.10.0",
+    "yfinance>=1.7.0",
+]

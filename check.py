@@ -1,0 +1,27 @@
+
+import pyotp
+from growwapi import GrowwAPI
+
+totp = pyotp.TOTP('O46OFL3G6UKKDR7LQVIIXVF5OFRP3JMU').now()
+
+access_token = GrowwAPI.get_access_token(
+    api_key='eyJraWQiOiJaTUtjVXciLCJhbGciOiJFUzI1NiJ9.eyJleHAiOjI1NzgwMjA0NjYsImlhdCI6MTc4OTYyMDQ2NiwibmJmIjoxNzg5NjIwNDY2LCJzdWIiOiJ7XCJ0b2tlblJlZklkXCI6XCJhM2NlYjRiZi00OTc5LTRhMjktOTcwNi1hZTQ1N2Y5MzM2ZDFcIixcInZlbmRvckludGVncmF0aW9uS2V5XCI6XCJlMzFmZjIzYjA4NmI0MDZjODg3NGIyZjZkODQ5NTMxM1wiLFwidXNlckFjY291bnRJZFwiOlwiNWMzY2M4OTctYzA0NS00N2FiLThjY2QtMjAzYTU4NDllOTM3XCIsXCJkZXZpY2VJZFwiOlwiNDUyYjQ0ZGMtMTA4Yy01YmIwLWFlYjktMmVmMjM0ODJiOGNjXCIsXCJzZXNzaW9uSWRcIjpcIjZkNzBkZDdkLTcyODktNDUzZS1iYzBmLTFjZWNhMjQ5MGJlOVwiLFwiYWRkaXRpb25hbERhdGFcIjpcIno1NC9NZzltdjE2WXdmb0gvS0EwYkljUmJKV28valpCbHc1SWVJRXJOU05STkczdTlLa2pWZDNoWjU1ZStNZERhWXBOVi9UOUxIRmtQejFFQisybTdRPT1cIixcInJvbGVcIjpcImF1dGgtdG90cFwiLFwic291cmNlSXBBZGRyZXNzXCI6XCIyNDAxOjQ5MDA6MWMwNzphZjFlOmVkOGE6ZjgxMjo5OTM6YzFkNywxNzIuNjkuMTIzLjE4NywzNS4yNDEuMjMuMTIzXCIsXCJ0d29GYUV4cGlyeVRzXCI6MjU3ODAyMDQ2NjIzMSxcInZlbmRvck5hbWVcIjpcImdyb3d3QXBpXCJ9IiwiaXNzIjoiYXBleC1hdXRoLXByb2QtYXBwIn0.07w93TTMhJGDM-0RV1saaq5CfcBA4GKETEy8GKW5B0zz9BRXuGWJ_QFN-yKpcMjirNaq8fCQA4lht9NDMfqedQ',
+    totp=totp
+)
+
+from growwapi import GrowwAPI
+
+groww = GrowwAPI(access_token)
+
+response = groww.place_order(
+    trading_symbol="IDEA",
+    quantity=1,
+    validity=groww.VALIDITY_DAY,
+    exchange=groww.EXCHANGE_NSE,
+    segment=groww.SEGMENT_CASH,
+    product=groww.PRODUCT_CNC,
+    order_type=groww.ORDER_TYPE_MARKET,
+    transaction_type=groww.TRANSACTION_TYPE_SELL
+)
+
+print(response)

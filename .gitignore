@@ -55,6 +55,7 @@ cover/
 *.mo
 *.pot
 
+.venv-test
 # Django stuff:
 *.log
 local_settings.py
@@ -216,3 +217,5 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+groww-python-mcp/

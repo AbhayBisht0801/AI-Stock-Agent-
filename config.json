@@ -1,0 +1,544 @@
+{
+  "groww_get_profile": {
+    "description": "Get the user's Groww profile details.",
+    "parameters": {
+      "properties": {},
+      "type": "object"
+    }
+  },
+  "groww_get_balance": {
+    "description": "Get available margin and balance details for the user.",
+    "parameters": {
+      "properties": {},
+      "type": "object"
+    }
+  },
+  "groww_get_holdings": {
+    "description": "Get all current equity holdings of the user.",
+    "parameters": {
+      "properties": {},
+      "type": "object"
+    }
+  },
+  "groww_get_positions": {
+    "description": "\n    Get user positions for a specific segment.\n    \n    Args:\n        params: segment (e.g., 'CASH', 'FNO')\n    ",
+    "parameters": {
+      "properties": {
+        "params": {
+          "additionalProperties": false,
+          "properties": {
+            "segment": {
+              "description": "Market segment (e.g., 'CASH', 'FNO')",
+              "type": "string"
+            }
+          },
+          "required": [
+            "segment"
+          ],
+          "type": "object"
+        }
+      },
+      "required": [
+        "params"
+      ],
+      "type": "object"
+    }
+  },
+  "groww_place_order": {
+    "description": "\n    Place a new standard order (Equity, FNO).\n    \n    Args:\n        order: StandardOrderInput containing all order details.\n    ",
+    "parameters": {
+      "properties": {
+        "order": {
+          "additionalProperties": false,
+          "properties": {
+            "validity": {
+              "default": "DAY",
+              "description": "Order validity (e.g., 'DAY', 'IOC')",
+              "type": "string"
+            },
+            "exchange": {
+              "description": "Exchange (e.g., 'NSE', 'BSE')",
+              "type": "string"
+            },
+            "order_type": {
+              "description": "Order type (e.g., 'LIMIT', 'MARKET', 'SL', 'SL_M')",
+              "type": "string"
+            },
+            "product": {
+              "description": "Product type (e.g., 'CASH', 'MIS', 'CNC')",
+              "type": "string"
+            },
+            "quantity": {
+              "description": "Order quantity",
+              "exclusiveMinimum": 0,
+              "type": "integer"
+            },
+            "segment": {
+              "description": "Market segment (e.g., 'CASH', 'FNO')",
+              "type": "string"
+            },
+            "trading_symbol": {
+              "description": "Trading symbol (e.g., 'RELIANCE')",
+              "type": "string"
+            },
+            "transaction_type": {
+              "description": "Transaction type ('BUY', 'SELL')",
+              "type": "string"
+            },
+            "price": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": 0.0,
+              "description": "Order price (required for LIMIT)"
+            },
+            "trigger_price": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "description": "Trigger price (required for SL/SL_M)"
+            },
+            "order_reference_id": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "description": "Client reference ID"
+            }
+          },
+          "required": [
+            "exchange",
+            "order_type",
+            "product",
+            "quantity",
+            "segment",
+            "trading_symbol",
+            "transaction_type"
+          ],
+          "type": "object"
+        }
+      },
+      "required": [
+        "order"
+      ],
+      "type": "object"
+    }
+  },
+  "groww_modify_order": {
+    "description": "\n    Modify an existing pending order.\n    ",
+    "parameters": {
+      "properties": {
+        "groww_order_id": {
+          "type": "string"
+        },
+        "segment": {
+          "type": "string"
+        },
+        "order_type": {
+          "type": "string"
+        },
+        "quantity": {
+          "type": "integer"
+        },
+        "price": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "trigger_price": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        }
+      },
+      "required": [
+        "groww_order_id",
+        "segment",
+        "order_type",
+        "quantity"
+      ],
+      "type": "object"
+    }
+  },
+  "groww_cancel_order": {
+    "description": "\n    Cancel an existing pending order.\n    ",
+    "parameters": {
+      "properties": {
+        "groww_order_id": {
+          "type": "string"
+        },
+        "segment": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "groww_order_id",
+        "segment"
+      ],
+      "type": "object"
+    }
+  },
+  "groww_create_smart_order": {
+    "description": "\n    Create a Smart Order (GTT or OCO).\n    \n    For GTT: Provide trigger_price, trigger_direction, order.\n    For OCO: Provide target, stop_loss, transaction_type.\n    ",
+    "parameters": {
+      "properties": {
+        "smart_order_type": {
+          "type": "string"
+        },
+        "segment": {
+          "type": "string"
+        },
+        "trading_symbol": {
+          "type": "string"
+        },
+        "quantity": {
+          "type": "integer"
+        },
+        "product_type": {
+          "type": "string"
+        },
+        "exchange": {
+          "type": "string"
+        },
+        "duration": {
+          "type": "string"
+        },
+        "trigger_price": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "trigger_direction": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "order": {
+          "anyOf": [
+            {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "target": {
+          "anyOf": [
+            {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "stop_loss": {
+          "anyOf": [
+            {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "transaction_type": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        }
+      },
+      "required": [
+        "smart_order_type",
+        "segment",
+        "trading_symbol",
+        "quantity",
+        "product_type",
+        "exchange",
+        "duration"
+      ],
+      "type": "object"
+    }
+  },
+  "groww_cancel_smart_order": {
+    "description": "Cancel an existing Smart Order (GTT/OCO).",
+    "parameters": {
+      "properties": {
+        "segment": {
+          "type": "string"
+        },
+        "smart_order_type": {
+          "type": "string"
+        },
+        "smart_order_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "segment",
+        "smart_order_type",
+        "smart_order_id"
+      ],
+      "type": "object"
+    }
+  },
+  "groww_get_smart_order_list": {
+    "description": "List Smart Orders (GTT/OCO) with optional filters.",
+    "parameters": {
+      "properties": {
+        "smart_order_type": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "segment": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "status": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "page": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": 0
+        },
+        "page_size": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": 25
+        }
+      },
+      "type": "object"
+    }
+  },
+  "groww_get_quote": {
+    "description": "Fetch the latest quote data for an instrument.",
+    "parameters": {
+      "properties": {
+        "trading_symbol": {
+          "type": "string"
+        },
+        "exchange": {
+          "type": "string"
+        },
+        "segment": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "trading_symbol",
+        "exchange",
+        "segment"
+      ],
+      "type": "object"
+    }
+  },
+  "groww_get_ltp": {
+    "description": "\n    Fetch the Last Traded Price (LTP) for a list of symbols.\n    \n    Args:\n        symbols: List of symbols (e.g., ['NSE_RELIANCE', 'NSE_INFY'])\n        segment: Market segment (CASH, FNO)\n    ",
+    "parameters": {
+      "properties": {
+        "symbols": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "segment": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "symbols",
+        "segment"
+      ],
+      "type": "object"
+    }
+  },
+  "groww_get_ohlc": {
+    "description": "Fetch OHLC data for a list of instruments.",
+    "parameters": {
+      "properties": {
+        "symbols": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "segment": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "symbols",
+        "segment"
+      ],
+      "type": "object"
+    }
+  },
+
+  "groww_get_greeks": {
+    "description": "Fetch Greeks data for a specific option contract.",
+    "parameters": {
+      "properties": {
+        "exchange": {
+          "type": "string"
+        },
+        "underlying": {
+          "type": "string"
+        },
+        "trading_symbol": {
+          "type": "string"
+        },
+        "expiry": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "exchange",
+        "underlying",
+        "trading_symbol",
+        "expiry"
+      ],
+      "type": "object"
+    }
+  },
+  "groww_get_contracts": {
+    "description": "Get available contracts for a specific underlying and expiry date.",
+    "parameters": {
+      "properties": {
+        "exchange": {
+          "type": "string"
+        },
+        "underlying_symbol": {
+          "type": "string"
+        },
+        "expiry_date": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "exchange",
+        "underlying_symbol",
+        "expiry_date"
+      ],
+      "type": "object"
+    }
+  },
+  "print_report": {
+    "description": "Take input Stock name Capitalized stock name input like Adani Power is the stock name it should be passed as ADANIPOWER.NS\n    with the duration in which Ananlysis need to been done like 1 month or 6  month so on the the input is number of months.\n    This Tool Generates the Stock performance report how good the stock is",
+    "parameters": {
+      "properties": {
+        "ticker": {
+          "type": "string"
+        },
+        "months": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "ticker",
+        "months"
+      ],
+      "type": "object"
+    }
+  },
+  "stock_price_budget_check":{
+    "description": "Checks if the total cost of buying a stock is within the available balance",
+    "parameters":{
+      "properties":{
+        "symbols":{"type":"string"},
+        "quantity":{"type":"integer"},
+        "price":{"type":"float"},
+        "balance_available":{"type":"float"}
+        
+      }
+    }
+  }
+}
