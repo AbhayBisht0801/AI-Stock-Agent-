@@ -32,8 +32,8 @@ client = MultiServerMCPClient(
         }
     }
 )
-model = ChatGoogleGenerativeAI(model="gemini-3.5-flash-lite")
-# model= ChatOpenAI(model="gpt-5-nano")
+# model = ChatGoogleGenerativeAI(model="gemini-3.5-flash-lite")
+model= ChatOpenAI(model="gpt-4o-mini")
 DANGEROUS_TOOLS = [
     "groww_place_order",
     "groww_modify_order",

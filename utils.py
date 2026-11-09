@@ -20,7 +20,7 @@ load_dotenv()
 with open("config.json", "r") as f:
     tool_description = json.load(f)
 
-model = ChatGoogleGenerativeAI(model="gemini-2.5-flash")
+# model = ChatGoogleGenerativeAI(model="gemini-2.5-flash")
 
 DANGEROUS_TOOLS = [
     "groww_place_order",
