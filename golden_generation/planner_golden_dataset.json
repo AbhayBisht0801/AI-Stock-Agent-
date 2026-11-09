@@ -1,0 +1,186 @@
+
+[
+  {
+    "id": "planner_01",
+    "scenario": "Fetch a stock performance report",
+    "input": {
+      "user_request": "Analyze Reliance stock performance for the last 6 months.",
+      "tool_available": ["groww_get_ohlc", "print_report"],
+      "intermediate_step":[]
+    },
+    "expected_output": {
+      "tool_calls": [
+        {
+          "name": "print_report",
+          "args": {
+            "ticker": "RELIANCE.NS",
+            "months": 6
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "planner_02",
+    "scenario": "Fetch current account balance before buying",
+    "input": {
+      "user_request": "Buy 5 shares of RELIANCE for long-term investment.",
+      "tool_available": ["groww_get_balance", "groww_place_order"],
+      "intermediate_step":[]
+    },
+    "expected_output": {
+      "tool_calls": [
+        {
+          "name": "groww_get_balance",
+          "args": {}
+        }
+      ]
+    }
+  },
+  {
+    "id": "planner_03",
+    "scenario": "Proceed with a buy after sufficient funds are confirmed",
+    "input": {
+      "user_request": "Buy 5 shares of RELIANCE for long-term investment at market price.",
+      "tool_available": ["groww_get_balance", "groww_place_order","stock_price_budget_check"],
+      "intermediate_step": ["Balance check successful. Available balance is Rs. 20000. The estimated total cost is Rs. 15000. Sufficient funds are available. Proceed with the requested buy order."]
+    },
+    "expected_output": {
+      "tool_calls": [
+        {
+          "name": "groww_place_order",
+          "args": {
+            "order": {
+              "exchange": "NSE",
+              "order_type": "MARKET",
+              "product": "CNC",
+              "quantity": 5,
+              "segment": "CASH",
+              "trading_symbol": "RELIANCE",
+              "transaction_type": "BUY"
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "planner_04",
+    "scenario": "Do not buy when funds are insufficient",
+    "input": {
+      "user_request": "Buy 10 shares of TCS for long-term investment.",
+      "tool_available": ["groww_get_balance", "groww_place_order","stock_price_budget_check"],
+      "intermediate_step": ["Balance check successful. Available balance is Rs. 1000. Estimated total cost for the requested shares is Rs. 35000. Funds are insufficient. Do not place the order."]
+    },
+    "expected_output": {
+      "tool_calls": []
+    }
+  },
+  {
+    "id": "planner_05",
+    "scenario": "Retrieve holdings",
+    "input": {
+      "user_request": "Show my current equity holdings.",
+      "tool_available": ["groww_get_holdings", "groww_get_positions"],
+      "intermediate_step": []
+    },
+    "expected_output": {
+      "tool_calls": [
+        {
+          "name": "groww_get_holdings",
+          "args": {}
+        }
+      ]
+    }
+  },
+  {
+    "id": "planner_06",
+    "scenario": "Retrieve cash market positions",
+    "input": {
+      "user_request": "Show my current cash market positions.",
+      "tool_available": ["groww_get_positions", "groww_get_holdings"],
+      "intermediate_step": []
+    },
+    "expected_output": {
+      "tool_calls": [
+        {
+          "name": "groww_get_positions",
+          "args": {
+            "params": {
+              "segment": "CASH"
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "planner_07",
+    "scenario": "Fetch LTP for multiple stocks",
+    "input": {
+      "user_request": "Get the latest traded prices of Reliance and Infosys.",
+      "tool_available": ["groww_get_ltp", "groww_get_quote"],
+      "intermediate_step": []
+    },
+    "expected_output": {
+      "tool_calls": [
+        {
+          "name": "groww_get_ltp",
+          "args": {
+            "symbol": ["NSE_RELIANCE", "NSE_INFY"],
+            "segment": "CASH"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "planner_09",
+    "scenario": "Place a sell order without a buy-balance prerequisite",
+    "input": {
+      "user_request": "Sell 2 shares of INFY at market price.",
+      "tool_available": ["groww_place_order", "groww_get_balance"],
+      "intermediate_step": []
+    },
+    "expected_output": {
+      "tool_calls": [
+        {
+          "name": "groww_place_order",
+          "args": {
+            "order": {
+              "exchange": "NSE",
+              "order_type": "MARKET",
+              "product": "CNC",
+              "quantity": 2,
+              "segment": "CASH",
+              "trading_symbol": "INFY",
+              "transaction_type": "SELL"
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "planner_10",
+    "scenario": "Check whether a proposed purchase fits the available budget",
+    "input": {
+      "user_request": "Check whether I can afford 4 shares of TCS at Rs. 3500 each with my available balance.",
+      "tool_available": ["groww_get_balance", "stock_price_budget_check","groww_place_order"],
+      "intermediate_step": ["Balance check successful. Available balance is Rs. 20000. The requested stock quantity and price are known. Check whether the total purchase cost fits the available balance."]
+    },
+    "expected_output": {
+      "tool_calls": [
+        {
+          "name": "stock_price_budget_check",
+          "args": {
+            "symbol": "TCS",
+            "quantity": 4,
+            "price": 3500.0,
+            "balance_available": 20000.0
+          }
+        }
+      ]
+    }
+  }
+]

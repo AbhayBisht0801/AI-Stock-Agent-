@@ -4,6 +4,9 @@ from langgraph.graph import StateGraph, START, END
 from langgraph.prebuilt import ToolNode
 from typing_extensions import TypedDict
 from langgraph.prebuilt import ToolNode
+import sys 
+# print("agent.py Python:", sys.executable)
+# breakpoint()
 from langchain_mcp_adapters.client import MultiServerMCPClient
 from langchain_core.messages import HumanMessage
 from dotenv import load_dotenv
@@ -196,11 +199,11 @@ async def build_graph():
 #     print("\n--- FINAL RESULT ---")
 #     print(result.get("final_answer"))
 #     return result
-async def main():
+async def main(user_request: str):
 
     app = await build_graph()
 
-    user_request = "I want to sell all my Vodafone IDEA Stock"
+   
 
     initial_state = {
         "input_message": [
@@ -276,6 +279,6 @@ async def main():
 
 
 if __name__ == "__main__":
-    result=asyncio.run(main())
+    result=asyncio.run(main(user_request='What are the stocks available with me?'))
     breakpoint()
 

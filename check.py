@@ -1,27 +1,36 @@
 
+import os
 import pyotp
+from dotenv import load_dotenv
 from growwapi import GrowwAPI
 
-totp = pyotp.TOTP('O46OFL3G6UKKDR7LQVIIXVF5OFRP3JMU').now()
+load_dotenv()
 
+api_key = os.environ["GROWW_TOTP_TOKEN"]
+totp_secret = os.environ["GROWW_TOTP_SECRET"]
+
+# Generate current TOTP
+totp = pyotp.TOTP(totp_secret).now()
+
+# Generate access token
 access_token = GrowwAPI.get_access_token(
-    api_key='eyJraWQiOiJaTUtjVXciLCJhbGciOiJFUzI1NiJ9.eyJleHAiOjI1NzgwMjA0NjYsImlhdCI6MTc4OTYyMDQ2NiwibmJmIjoxNzg5NjIwNDY2LCJzdWIiOiJ7XCJ0b2tlblJlZklkXCI6XCJhM2NlYjRiZi00OTc5LTRhMjktOTcwNi1hZTQ1N2Y5MzM2ZDFcIixcInZlbmRvckludGVncmF0aW9uS2V5XCI6XCJlMzFmZjIzYjA4NmI0MDZjODg3NGIyZjZkODQ5NTMxM1wiLFwidXNlckFjY291bnRJZFwiOlwiNWMzY2M4OTctYzA0NS00N2FiLThjY2QtMjAzYTU4NDllOTM3XCIsXCJkZXZpY2VJZFwiOlwiNDUyYjQ0ZGMtMTA4Yy01YmIwLWFlYjktMmVmMjM0ODJiOGNjXCIsXCJzZXNzaW9uSWRcIjpcIjZkNzBkZDdkLTcyODktNDUzZS1iYzBmLTFjZWNhMjQ5MGJlOVwiLFwiYWRkaXRpb25hbERhdGFcIjpcIno1NC9NZzltdjE2WXdmb0gvS0EwYkljUmJKV28valpCbHc1SWVJRXJOU05STkczdTlLa2pWZDNoWjU1ZStNZERhWXBOVi9UOUxIRmtQejFFQisybTdRPT1cIixcInJvbGVcIjpcImF1dGgtdG90cFwiLFwic291cmNlSXBBZGRyZXNzXCI6XCIyNDAxOjQ5MDA6MWMwNzphZjFlOmVkOGE6ZjgxMjo5OTM6YzFkNywxNzIuNjkuMTIzLjE4NywzNS4yNDEuMjMuMTIzXCIsXCJ0d29GYUV4cGlyeVRzXCI6MjU3ODAyMDQ2NjIzMSxcInZlbmRvck5hbWVcIjpcImdyb3d3QXBpXCJ9IiwiaXNzIjoiYXBleC1hdXRoLXByb2QtYXBwIn0.07w93TTMhJGDM-0RV1saaq5CfcBA4GKETEy8GKW5B0zz9BRXuGWJ_QFN-yKpcMjirNaq8fCQA4lht9NDMfqedQ',
+    api_key=api_key,
     totp=totp
 )
 
-from growwapi import GrowwAPI
-
+# Initialize client
 groww = GrowwAPI(access_token)
 
-response = groww.place_order(
-    trading_symbol="IDEA",
-    quantity=1,
-    validity=groww.VALIDITY_DAY,
-    exchange=groww.EXCHANGE_NSE,
-    segment=groww.SEGMENT_CASH,
-    product=groww.PRODUCT_CNC,
-    order_type=groww.ORDER_TYPE_MARKET,
-    transaction_type=groww.TRANSACTION_TYPE_SELL
-)
+# Fetch available margin details
+# margin = groww.get_available_margin_details()
+# print("Available margin:", margin)
 
-print(response)
+# # Fetch positions
+# positions = groww.get_positions_for_user()
+# print("Positions:", positions)
+
+# Fetch holdings
+holdings = groww.get_holdings_for_user()
+print("Holdings:", type(holdings))
+for i in holdings['holdings']:
+    print(f"Stock: {i['trading_symbol']}, Quantity: {i['quantity']} ,Avg Price: {i['average_price']}")#) Current Price: {i['current_price']}")

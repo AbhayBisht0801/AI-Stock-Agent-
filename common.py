@@ -1,26 +1,37 @@
-"""
-Stock Analyzer
-==============
-Checks a stock's recent price performance (3-6 months) and evaluates
-its fundamentals (valuation, profitability, growth, financial health)
-to give a quick, structured read on the company.
 
-Usage:
-    python stock_analyzer.py AAPL
-    python stock_analyzer.py AAPL MSFT GOOGL      # multiple tickers
-    python stock_analyzer.py AAPL --months 6
-
-Requires:
-    pip install yfinance pandas
-"""
 
 import sys
 import argparse
 from datetime import datetime, timedelta
-
+import json
+import math
+from pathlib import Path
 import pandas as pd
 import yfinance as yf
 from langchain.tools import tool
+import asyncio
+from growwapi import GrowwAPI
+from dotenv import load_dotenv
+load_dotenv()
+import os
+import pyotp
+api_key = os.environ["GROWW_TOTP_TOKEN"]
+totp_secret = os.environ["GROWW_TOTP_SECRET"]
+
+
+# Generate current TOTP
+totp = pyotp.TOTP(totp_secret).now()
+access_token = GrowwAPI.get_access_token(
+    api_key=api_key,
+    totp=totp
+)
+
+groww = GrowwAPI(access_token)
+# Generate access token
+access_token = GrowwAPI.get_access_token(
+    api_key=api_key,
+    totp=totp
+)
 
 # --------------------------------------------------------------------------
 # Price performance
@@ -282,8 +293,118 @@ async def print_report(ticker: str, months: int):
 
 
 
-        
+
+
+
+# Your holdings: ticker -> average buy price and quantity
+# HOLDINGS = {
+#     "ADANIPOWER.NS": {"avg_buy_price": 520.0, "quantity": 200},
+
+# }
+
+OUTPUT_FILE = "stocks.json"
+
+
+def _clean(obj):
+    """Make values JSON-safe: numpy/pandas scalars, Timestamps, NaN/inf -> None."""
+    if isinstance(obj, dict):
+        return {str(k): _clean(v) for k, v in obj.items()}
+    if isinstance(obj, (list, tuple, set)):
+        return [_clean(v) for v in obj]
+    if hasattr(obj, "item") and not isinstance(obj, (str, bytes)):  # numpy scalar
+        try:
+            obj = obj.item()
+        except Exception:
+            pass
+    if isinstance(obj, float):
+        return None if (math.isnan(obj) or math.isinf(obj)) else obj
+    if isinstance(obj, (str, int, bool)) or obj is None:
+        return obj
+    return str(obj)  # dates, Timestamps, anything else
+
+
+def get_stock_report(ticker: str, months: int, avg_buy_price=None, quantity=1) -> dict:
+    """Same data print_report prints, returned as one dict (no printing)."""
+    ticker = ticker.upper()
+    perf = get_price_performance(ticker, months)  # raises if price data is missing
+
+    try:
+        fund = get_fundamentals(ticker) or {}
+    except Exception as e:
+        print(f"[{ticker}] fundamentals error: {e}")
+        fund = {}
+
+    try:
+        score = score_fundamentals(fund) if fund else {}
+    except Exception as e:
+        print(f"[{ticker}] scoring error: {e}")
+        score = {}
+
+    return _clean({
+        "ticker": ticker,
+        "quantity": quantity,
+        "avg_buy_price": avg_buy_price,
+        "current_price": perf.get("end_price"),
+        "performance": perf,
+        "fundamentals": fund,
+        "score": score,
+    })
+
+
+def export_stocks_json(holdings: dict = None, months: int = 6, path: str = OUTPUT_FILE) -> dict:
+    """Run the report for every holding and write the dashboard JSON."""
+    holding_result = groww.get_holdings_for_user()
+    holdings=dict()
+    
+    for i in holding_result['holdings']:
+        holdings[f"{i['trading_symbol']}.NS"] = {
+    "quantity": i["quantity"],
+    "avg_buy_price": i["average_price"],
+}
+    print(holdings)
+    stocks, failed = [], []
+
+    for ticker, h in holdings.items():
+        try:
+            stocks.append(get_stock_report(
+                ticker, months,
+                avg_buy_price=h.get("avg_buy_price"),
+                quantity=h.get("quantity", 1),
+            ))
+            print(f"OK   {ticker}")
+        except Exception as e:
+            failed.append({"ticker": ticker, "error": str(e)})
+            print(f"FAIL {ticker}: {e}")
+
+    payload = {
+        "generated_at": datetime.now().astimezone().isoformat(timespec="seconds"),
+        "months": months,
+        "stocks": stocks,
+        "failed": failed,
+    }
+    Path(path).write_text(json.dumps(payload, indent=2, ensure_ascii=False), encoding="utf-8")
+    print(f"\nWrote {len(stocks)} stocks to {path}" + (f" ({len(failed)} failed)" if failed else ""))
+    return payload
+
+
+# Async wrapper so it can sit next to your @tool functions.
+# If you use it as a tool, add the @tool decorator above it.
+async def export_stock_json( months: int = 6, path: str = OUTPUT_FILE):
+    holding_result = groww.get_holdings_for_user()
+    r
+    holdings=dict()
+    
+    for i in holding_result['holdings']:
+        holdings[f"{i['trading_symbol']}.NS"] = {
+    "quantity": i["quantity"],
+    "avg_buy_price": i["average_price"],
+}
+    print(holdings)
+    return await asyncio.to_thread(export_stocks_json, holdings, months, path)
+
+
+
 
 
 if __name__ == "__main__":
-    print_report('ADANIPOWER.NS',1)
+    export_stocks_json(months=6)

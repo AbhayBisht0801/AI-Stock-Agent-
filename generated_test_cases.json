@@ -1,0 +1,304 @@
+{
+    "run_id": "b538d18e-c1ee-42ba-b3cf-ea912df8e18b",
+    "generated_at": "2026-10-31T16:02:01.014029+00:00",
+    "total_test_cases": 9,
+    "test_cases": [
+        {
+            "test_case_id": 1,
+            "input": "Analyze Reliance stock performance for the last 6 months.",
+            "actual_output": "{\"tool_calls\": [{\"name\": \"print_report\", \"args\": {\"months\": 6, \"ticker\": \"reliance.ns\"}}]}",
+            "tools_called": [
+                {
+                    "name": "print_report",
+                    "args": {
+                        "months": 6,
+                        "ticker": "reliance.ns"
+                    }
+                }
+            ],
+            "expected_tools": [
+                {
+                    "name": "print_report",
+                    "args": {
+                        "ticker": "reliance.ns",
+                        "months": 6
+                    }
+                }
+            ],
+            "additional_metadata": {
+                "run_id": "b538d18e-c1ee-42ba-b3cf-ea912df8e18b",
+                "source_test_case_index": 1,
+                "evaluation_instructions": "\nYou are an expert evaluator responsible for assessing\nthe correctness of tool selection by an AI agent.\n\nEvaluate whether the agent selected the appropriate tools\nbased on the user's request, available tool descriptions,\nexpected workflow, and provided context.\n\nFollow these evaluation principles:\n\n1. Tool Relevance:\nEvery selected tool must be relevant to fulfilling\nthe user's request.\n\n2. Tool Completeness:\nIdentify whether all necessary tools required to fulfill\nthe user's request have been selected.\n\n3. Unnecessary Tool Selection:\nPenalize tools that are irrelevant, redundant, or do not\ncontribute to fulfilling the user's request.\n\n4. Workflow Correctness:\nEvaluate whether the selected tools follow the logically\ncorrect sequence and dependencies.\n\n5. Context Awareness:\nConsider previous conversation steps, intermediate\nresults, and already available information.\n\n6. Tool Availability:\nEvaluate tool selection only against tools made available\nto the agent.\n\n7. Intent Understanding:\nJudge tool selection based on the user's actual intent.\n\n8. No Unnecessary Actions:\nDo not expect action-oriented tools when the user only\nrequests information, explanation, or analysis.\n\n9. Partial Correctness:\nGive partial credit when selected tools are relevant\nbut incomplete or contain minor unnecessary calls.\n\n10. Evidence-Based Evaluation:\nBase the assessment strictly on the user's request,\navailable tool descriptions, expected tool calls,\nand supplied context.\n\nScoring Guidelines:\n\n1.0: All necessary tools selected, no unnecessary tools.\n0.8-0.99: Substantially correct with minor omissions.\n0.5-0.79: Partially correct with significant issues.\n0.1-0.49: Mostly incorrect.\n0.0: Completely incorrect.\n\nAn empty tool-call list is correct only when the user's\nrequest does not require any tool.\n\nEvaluate tool selection, not whether the tools executed\nsuccessfully or produced the expected results.\n",
+                "argument_evaluation_instructions": "\nYou are an expert evaluator responsible for assessing\nthe correctness of arguments passed by an AI agent\nto its selected tools.\n\nEvaluate whether the arguments supplied to each tool\nare accurate, complete, relevant, and consistent with\nthe tool's schema and the user's intent.\n\nFollow these evaluation principles:\n\n1. Argument Accuracy:\nVerify that each supplied argument has the correct\nvalue based on the user's request and available context.\n\n2. Required Arguments:\nEnsure all required arguments specified in the\ntool description or schema are present.\n\n3. Optional Arguments:\nDo not penalize omitted optional arguments unless\nthey are necessary.\n\n4. Parameter Names:\nArgument names must match the tool's defined schema.\n\n5. Data Types:\nVerify that argument values use the expected data types.\n\n6. Context Consistency:\nArguments must be consistent with the current request,\nprevious conversation, and intermediate tool results.\n\n7. Value Correctness:\nVerify identifiers, dates, quantities, filters,\nand configurations.\n\n8. Missing Information:\nDo not reward fabricated values or assumptions when\nrequired information is unavailable.\n\n9. Extra Arguments:\nPenalize unsupported or irrelevant arguments.\n\n10. Tool-Specific Constraints:\nRespect all constraints, dependencies, validation rules,\nand requirements defined by the tool schema.\n\n11. Argument Relevance:\nArguments must contribute to the intended operation.\n\n12. Evidence-Based Evaluation:\nJudge arguments only against the supplied request,\nconversation context, intermediate results,\nand tool descriptions.\n\nScoring Guidelines:\n\n1.0: All arguments are correct and schema-compliant.\n0.8-0.99: Substantially correct with minor issues.\n0.5-0.79: Some arguments correct, significant issues.\n0.1-0.49: Most arguments incorrect or incomplete.\n0.0: Arguments fundamentally violate requirements.\n\nEvaluate argument correctness independently of whether\nthe tool executed successfully or returned expected results.\n",
+                "intermediate_step": "[]",
+                "available_tool_names": [
+                    "groww_get_ohlc",
+                    "print_report"
+                ]
+            }
+        },
+        {
+            "test_case_id": 2,
+            "input": "Buy 5 shares of RELIANCE for long-term investment.",
+            "actual_output": "{\"tool_calls\": [{\"name\": \"groww_get_balance\", \"args\": {}}]}",
+            "tools_called": [
+                {
+                    "name": "groww_get_balance",
+                    "args": {}
+                }
+            ],
+            "expected_tools": [
+                {
+                    "name": "groww_get_balance",
+                    "args": {}
+                }
+            ],
+            "additional_metadata": {
+                "run_id": "b538d18e-c1ee-42ba-b3cf-ea912df8e18b",
+                "source_test_case_index": 2,
+                "evaluation_instructions": "\nYou are an expert evaluator responsible for assessing\nthe correctness of tool selection by an AI agent.\n\nEvaluate whether the agent selected the appropriate tools\nbased on the user's request, available tool descriptions,\nexpected workflow, and provided context.\n\nFollow these evaluation principles:\n\n1. Tool Relevance:\nEvery selected tool must be relevant to fulfilling\nthe user's request.\n\n2. Tool Completeness:\nIdentify whether all necessary tools required to fulfill\nthe user's request have been selected.\n\n3. Unnecessary Tool Selection:\nPenalize tools that are irrelevant, redundant, or do not\ncontribute to fulfilling the user's request.\n\n4. Workflow Correctness:\nEvaluate whether the selected tools follow the logically\ncorrect sequence and dependencies.\n\n5. Context Awareness:\nConsider previous conversation steps, intermediate\nresults, and already available information.\n\n6. Tool Availability:\nEvaluate tool selection only against tools made available\nto the agent.\n\n7. Intent Understanding:\nJudge tool selection based on the user's actual intent.\n\n8. No Unnecessary Actions:\nDo not expect action-oriented tools when the user only\nrequests information, explanation, or analysis.\n\n9. Partial Correctness:\nGive partial credit when selected tools are relevant\nbut incomplete or contain minor unnecessary calls.\n\n10. Evidence-Based Evaluation:\nBase the assessment strictly on the user's request,\navailable tool descriptions, expected tool calls,\nand supplied context.\n\nScoring Guidelines:\n\n1.0: All necessary tools selected, no unnecessary tools.\n0.8-0.99: Substantially correct with minor omissions.\n0.5-0.79: Partially correct with significant issues.\n0.1-0.49: Mostly incorrect.\n0.0: Completely incorrect.\n\nAn empty tool-call list is correct only when the user's\nrequest does not require any tool.\n\nEvaluate tool selection, not whether the tools executed\nsuccessfully or produced the expected results.\n",
+                "argument_evaluation_instructions": "\nYou are an expert evaluator responsible for assessing\nthe correctness of arguments passed by an AI agent\nto its selected tools.\n\nEvaluate whether the arguments supplied to each tool\nare accurate, complete, relevant, and consistent with\nthe tool's schema and the user's intent.\n\nFollow these evaluation principles:\n\n1. Argument Accuracy:\nVerify that each supplied argument has the correct\nvalue based on the user's request and available context.\n\n2. Required Arguments:\nEnsure all required arguments specified in the\ntool description or schema are present.\n\n3. Optional Arguments:\nDo not penalize omitted optional arguments unless\nthey are necessary.\n\n4. Parameter Names:\nArgument names must match the tool's defined schema.\n\n5. Data Types:\nVerify that argument values use the expected data types.\n\n6. Context Consistency:\nArguments must be consistent with the current request,\nprevious conversation, and intermediate tool results.\n\n7. Value Correctness:\nVerify identifiers, dates, quantities, filters,\nand configurations.\n\n8. Missing Information:\nDo not reward fabricated values or assumptions when\nrequired information is unavailable.\n\n9. Extra Arguments:\nPenalize unsupported or irrelevant arguments.\n\n10. Tool-Specific Constraints:\nRespect all constraints, dependencies, validation rules,\nand requirements defined by the tool schema.\n\n11. Argument Relevance:\nArguments must contribute to the intended operation.\n\n12. Evidence-Based Evaluation:\nJudge arguments only against the supplied request,\nconversation context, intermediate results,\nand tool descriptions.\n\nScoring Guidelines:\n\n1.0: All arguments are correct and schema-compliant.\n0.8-0.99: Substantially correct with minor issues.\n0.5-0.79: Some arguments correct, significant issues.\n0.1-0.49: Most arguments incorrect or incomplete.\n0.0: Arguments fundamentally violate requirements.\n\nEvaluate argument correctness independently of whether\nthe tool executed successfully or returned expected results.\n",
+                "intermediate_step": "[]",
+                "available_tool_names": [
+                    "groww_get_balance",
+                    "groww_place_order"
+                ]
+            }
+        },
+        {
+            "test_case_id": 3,
+            "input": "Buy 5 shares of RELIANCE for long-term investment at market price.",
+            "actual_output": "{\"tool_calls\": []}",
+            "tools_called": [],
+            "expected_tools": [
+                {
+                    "name": "groww_place_order",
+                    "args": {
+                        "order": {
+                            "exchange": "nse",
+                            "order_type": "market",
+                            "product": "cnc",
+                            "quantity": 5,
+                            "segment": "cash",
+                            "trading_symbol": "reliance",
+                            "transaction_type": "buy"
+                        }
+                    }
+                }
+            ],
+            "additional_metadata": {
+                "run_id": "b538d18e-c1ee-42ba-b3cf-ea912df8e18b",
+                "source_test_case_index": 3,
+                "evaluation_instructions": "\nYou are an expert evaluator responsible for assessing\nthe correctness of tool selection by an AI agent.\n\nEvaluate whether the agent selected the appropriate tools\nbased on the user's request, available tool descriptions,\nexpected workflow, and provided context.\n\nFollow these evaluation principles:\n\n1. Tool Relevance:\nEvery selected tool must be relevant to fulfilling\nthe user's request.\n\n2. Tool Completeness:\nIdentify whether all necessary tools required to fulfill\nthe user's request have been selected.\n\n3. Unnecessary Tool Selection:\nPenalize tools that are irrelevant, redundant, or do not\ncontribute to fulfilling the user's request.\n\n4. Workflow Correctness:\nEvaluate whether the selected tools follow the logically\ncorrect sequence and dependencies.\n\n5. Context Awareness:\nConsider previous conversation steps, intermediate\nresults, and already available information.\n\n6. Tool Availability:\nEvaluate tool selection only against tools made available\nto the agent.\n\n7. Intent Understanding:\nJudge tool selection based on the user's actual intent.\n\n8. No Unnecessary Actions:\nDo not expect action-oriented tools when the user only\nrequests information, explanation, or analysis.\n\n9. Partial Correctness:\nGive partial credit when selected tools are relevant\nbut incomplete or contain minor unnecessary calls.\n\n10. Evidence-Based Evaluation:\nBase the assessment strictly on the user's request,\navailable tool descriptions, expected tool calls,\nand supplied context.\n\nScoring Guidelines:\n\n1.0: All necessary tools selected, no unnecessary tools.\n0.8-0.99: Substantially correct with minor omissions.\n0.5-0.79: Partially correct with significant issues.\n0.1-0.49: Mostly incorrect.\n0.0: Completely incorrect.\n\nAn empty tool-call list is correct only when the user's\nrequest does not require any tool.\n\nEvaluate tool selection, not whether the tools executed\nsuccessfully or produced the expected results.\n",
+                "argument_evaluation_instructions": "\nYou are an expert evaluator responsible for assessing\nthe correctness of arguments passed by an AI agent\nto its selected tools.\n\nEvaluate whether the arguments supplied to each tool\nare accurate, complete, relevant, and consistent with\nthe tool's schema and the user's intent.\n\nFollow these evaluation principles:\n\n1. Argument Accuracy:\nVerify that each supplied argument has the correct\nvalue based on the user's request and available context.\n\n2. Required Arguments:\nEnsure all required arguments specified in the\ntool description or schema are present.\n\n3. Optional Arguments:\nDo not penalize omitted optional arguments unless\nthey are necessary.\n\n4. Parameter Names:\nArgument names must match the tool's defined schema.\n\n5. Data Types:\nVerify that argument values use the expected data types.\n\n6. Context Consistency:\nArguments must be consistent with the current request,\nprevious conversation, and intermediate tool results.\n\n7. Value Correctness:\nVerify identifiers, dates, quantities, filters,\nand configurations.\n\n8. Missing Information:\nDo not reward fabricated values or assumptions when\nrequired information is unavailable.\n\n9. Extra Arguments:\nPenalize unsupported or irrelevant arguments.\n\n10. Tool-Specific Constraints:\nRespect all constraints, dependencies, validation rules,\nand requirements defined by the tool schema.\n\n11. Argument Relevance:\nArguments must contribute to the intended operation.\n\n12. Evidence-Based Evaluation:\nJudge arguments only against the supplied request,\nconversation context, intermediate results,\nand tool descriptions.\n\nScoring Guidelines:\n\n1.0: All arguments are correct and schema-compliant.\n0.8-0.99: Substantially correct with minor issues.\n0.5-0.79: Some arguments correct, significant issues.\n0.1-0.49: Most arguments incorrect or incomplete.\n0.0: Arguments fundamentally violate requirements.\n\nEvaluate argument correctness independently of whether\nthe tool executed successfully or returned expected results.\n",
+                "intermediate_step": "['Balance check successful. Available balance is Rs. 20000. The estimated total cost is Rs. 15000. Sufficient funds are available. Proceed with the requested buy order.']",
+                "available_tool_names": [
+                    "groww_get_balance",
+                    "groww_place_order",
+                    "stock_price_budget_check"
+                ]
+            }
+        },
+        {
+            "test_case_id": 4,
+            "input": "Buy 10 shares of TCS for long-term investment.",
+            "actual_output": "{\"tool_calls\": []}",
+            "tools_called": [],
+            "expected_tools": [],
+            "additional_metadata": {
+                "run_id": "b538d18e-c1ee-42ba-b3cf-ea912df8e18b",
+                "source_test_case_index": 4,
+                "evaluation_instructions": "\nYou are an expert evaluator responsible for assessing\nthe correctness of tool selection by an AI agent.\n\nEvaluate whether the agent selected the appropriate tools\nbased on the user's request, available tool descriptions,\nexpected workflow, and provided context.\n\nFollow these evaluation principles:\n\n1. Tool Relevance:\nEvery selected tool must be relevant to fulfilling\nthe user's request.\n\n2. Tool Completeness:\nIdentify whether all necessary tools required to fulfill\nthe user's request have been selected.\n\n3. Unnecessary Tool Selection:\nPenalize tools that are irrelevant, redundant, or do not\ncontribute to fulfilling the user's request.\n\n4. Workflow Correctness:\nEvaluate whether the selected tools follow the logically\ncorrect sequence and dependencies.\n\n5. Context Awareness:\nConsider previous conversation steps, intermediate\nresults, and already available information.\n\n6. Tool Availability:\nEvaluate tool selection only against tools made available\nto the agent.\n\n7. Intent Understanding:\nJudge tool selection based on the user's actual intent.\n\n8. No Unnecessary Actions:\nDo not expect action-oriented tools when the user only\nrequests information, explanation, or analysis.\n\n9. Partial Correctness:\nGive partial credit when selected tools are relevant\nbut incomplete or contain minor unnecessary calls.\n\n10. Evidence-Based Evaluation:\nBase the assessment strictly on the user's request,\navailable tool descriptions, expected tool calls,\nand supplied context.\n\nScoring Guidelines:\n\n1.0: All necessary tools selected, no unnecessary tools.\n0.8-0.99: Substantially correct with minor omissions.\n0.5-0.79: Partially correct with significant issues.\n0.1-0.49: Mostly incorrect.\n0.0: Completely incorrect.\n\nAn empty tool-call list is correct only when the user's\nrequest does not require any tool.\n\nEvaluate tool selection, not whether the tools executed\nsuccessfully or produced the expected results.\n",
+                "argument_evaluation_instructions": "\nYou are an expert evaluator responsible for assessing\nthe correctness of arguments passed by an AI agent\nto its selected tools.\n\nEvaluate whether the arguments supplied to each tool\nare accurate, complete, relevant, and consistent with\nthe tool's schema and the user's intent.\n\nFollow these evaluation principles:\n\n1. Argument Accuracy:\nVerify that each supplied argument has the correct\nvalue based on the user's request and available context.\n\n2. Required Arguments:\nEnsure all required arguments specified in the\ntool description or schema are present.\n\n3. Optional Arguments:\nDo not penalize omitted optional arguments unless\nthey are necessary.\n\n4. Parameter Names:\nArgument names must match the tool's defined schema.\n\n5. Data Types:\nVerify that argument values use the expected data types.\n\n6. Context Consistency:\nArguments must be consistent with the current request,\nprevious conversation, and intermediate tool results.\n\n7. Value Correctness:\nVerify identifiers, dates, quantities, filters,\nand configurations.\n\n8. Missing Information:\nDo not reward fabricated values or assumptions when\nrequired information is unavailable.\n\n9. Extra Arguments:\nPenalize unsupported or irrelevant arguments.\n\n10. Tool-Specific Constraints:\nRespect all constraints, dependencies, validation rules,\nand requirements defined by the tool schema.\n\n11. Argument Relevance:\nArguments must contribute to the intended operation.\n\n12. Evidence-Based Evaluation:\nJudge arguments only against the supplied request,\nconversation context, intermediate results,\nand tool descriptions.\n\nScoring Guidelines:\n\n1.0: All arguments are correct and schema-compliant.\n0.8-0.99: Substantially correct with minor issues.\n0.5-0.79: Some arguments correct, significant issues.\n0.1-0.49: Most arguments incorrect or incomplete.\n0.0: Arguments fundamentally violate requirements.\n\nEvaluate argument correctness independently of whether\nthe tool executed successfully or returned expected results.\n",
+                "intermediate_step": "['Balance check successful. Available balance is Rs. 1000. Estimated total cost for the requested shares is Rs. 35000. Funds are insufficient. Do not place the order.']",
+                "available_tool_names": [
+                    "groww_get_balance",
+                    "groww_place_order",
+                    "stock_price_budget_check"
+                ]
+            }
+        },
+        {
+            "test_case_id": 5,
+            "input": "Show my current equity holdings.",
+            "actual_output": "{\"tool_calls\": [{\"name\": \"groww_get_holdings\", \"args\": {}}]}",
+            "tools_called": [
+                {
+                    "name": "groww_get_holdings",
+                    "args": {}
+                }
+            ],
+            "expected_tools": [
+                {
+                    "name": "groww_get_holdings",
+                    "args": {}
+                }
+            ],
+            "additional_metadata": {
+                "run_id": "b538d18e-c1ee-42ba-b3cf-ea912df8e18b",
+                "source_test_case_index": 5,
+                "evaluation_instructions": "\nYou are an expert evaluator responsible for assessing\nthe correctness of tool selection by an AI agent.\n\nEvaluate whether the agent selected the appropriate tools\nbased on the user's request, available tool descriptions,\nexpected workflow, and provided context.\n\nFollow these evaluation principles:\n\n1. Tool Relevance:\nEvery selected tool must be relevant to fulfilling\nthe user's request.\n\n2. Tool Completeness:\nIdentify whether all necessary tools required to fulfill\nthe user's request have been selected.\n\n3. Unnecessary Tool Selection:\nPenalize tools that are irrelevant, redundant, or do not\ncontribute to fulfilling the user's request.\n\n4. Workflow Correctness:\nEvaluate whether the selected tools follow the logically\ncorrect sequence and dependencies.\n\n5. Context Awareness:\nConsider previous conversation steps, intermediate\nresults, and already available information.\n\n6. Tool Availability:\nEvaluate tool selection only against tools made available\nto the agent.\n\n7. Intent Understanding:\nJudge tool selection based on the user's actual intent.\n\n8. No Unnecessary Actions:\nDo not expect action-oriented tools when the user only\nrequests information, explanation, or analysis.\n\n9. Partial Correctness:\nGive partial credit when selected tools are relevant\nbut incomplete or contain minor unnecessary calls.\n\n10. Evidence-Based Evaluation:\nBase the assessment strictly on the user's request,\navailable tool descriptions, expected tool calls,\nand supplied context.\n\nScoring Guidelines:\n\n1.0: All necessary tools selected, no unnecessary tools.\n0.8-0.99: Substantially correct with minor omissions.\n0.5-0.79: Partially correct with significant issues.\n0.1-0.49: Mostly incorrect.\n0.0: Completely incorrect.\n\nAn empty tool-call list is correct only when the user's\nrequest does not require any tool.\n\nEvaluate tool selection, not whether the tools executed\nsuccessfully or produced the expected results.\n",
+                "argument_evaluation_instructions": "\nYou are an expert evaluator responsible for assessing\nthe correctness of arguments passed by an AI agent\nto its selected tools.\n\nEvaluate whether the arguments supplied to each tool\nare accurate, complete, relevant, and consistent with\nthe tool's schema and the user's intent.\n\nFollow these evaluation principles:\n\n1. Argument Accuracy:\nVerify that each supplied argument has the correct\nvalue based on the user's request and available context.\n\n2. Required Arguments:\nEnsure all required arguments specified in the\ntool description or schema are present.\n\n3. Optional Arguments:\nDo not penalize omitted optional arguments unless\nthey are necessary.\n\n4. Parameter Names:\nArgument names must match the tool's defined schema.\n\n5. Data Types:\nVerify that argument values use the expected data types.\n\n6. Context Consistency:\nArguments must be consistent with the current request,\nprevious conversation, and intermediate tool results.\n\n7. Value Correctness:\nVerify identifiers, dates, quantities, filters,\nand configurations.\n\n8. Missing Information:\nDo not reward fabricated values or assumptions when\nrequired information is unavailable.\n\n9. Extra Arguments:\nPenalize unsupported or irrelevant arguments.\n\n10. Tool-Specific Constraints:\nRespect all constraints, dependencies, validation rules,\nand requirements defined by the tool schema.\n\n11. Argument Relevance:\nArguments must contribute to the intended operation.\n\n12. Evidence-Based Evaluation:\nJudge arguments only against the supplied request,\nconversation context, intermediate results,\nand tool descriptions.\n\nScoring Guidelines:\n\n1.0: All arguments are correct and schema-compliant.\n0.8-0.99: Substantially correct with minor issues.\n0.5-0.79: Some arguments correct, significant issues.\n0.1-0.49: Most arguments incorrect or incomplete.\n0.0: Arguments fundamentally violate requirements.\n\nEvaluate argument correctness independently of whether\nthe tool executed successfully or returned expected results.\n",
+                "intermediate_step": "[]",
+                "available_tool_names": [
+                    "groww_get_holdings",
+                    "groww_get_positions"
+                ]
+            }
+        },
+        {
+            "test_case_id": 6,
+            "input": "Show my current cash market positions.",
+            "actual_output": "{\"tool_calls\": [{\"name\": \"groww_get_positions\", \"args\": {\"params\": {\"segment\": \"cash\"}}}]}",
+            "tools_called": [
+                {
+                    "name": "groww_get_positions",
+                    "args": {
+                        "params": {
+                            "segment": "cash"
+                        }
+                    }
+                }
+            ],
+            "expected_tools": [
+                {
+                    "name": "groww_get_positions",
+                    "args": {
+                        "params": {
+                            "segment": "cash"
+                        }
+                    }
+                }
+            ],
+            "additional_metadata": {
+                "run_id": "b538d18e-c1ee-42ba-b3cf-ea912df8e18b",
+                "source_test_case_index": 6,
+                "evaluation_instructions": "\nYou are an expert evaluator responsible for assessing\nthe correctness of tool selection by an AI agent.\n\nEvaluate whether the agent selected the appropriate tools\nbased on the user's request, available tool descriptions,\nexpected workflow, and provided context.\n\nFollow these evaluation principles:\n\n1. Tool Relevance:\nEvery selected tool must be relevant to fulfilling\nthe user's request.\n\n2. Tool Completeness:\nIdentify whether all necessary tools required to fulfill\nthe user's request have been selected.\n\n3. Unnecessary Tool Selection:\nPenalize tools that are irrelevant, redundant, or do not\ncontribute to fulfilling the user's request.\n\n4. Workflow Correctness:\nEvaluate whether the selected tools follow the logically\ncorrect sequence and dependencies.\n\n5. Context Awareness:\nConsider previous conversation steps, intermediate\nresults, and already available information.\n\n6. Tool Availability:\nEvaluate tool selection only against tools made available\nto the agent.\n\n7. Intent Understanding:\nJudge tool selection based on the user's actual intent.\n\n8. No Unnecessary Actions:\nDo not expect action-oriented tools when the user only\nrequests information, explanation, or analysis.\n\n9. Partial Correctness:\nGive partial credit when selected tools are relevant\nbut incomplete or contain minor unnecessary calls.\n\n10. Evidence-Based Evaluation:\nBase the assessment strictly on the user's request,\navailable tool descriptions, expected tool calls,\nand supplied context.\n\nScoring Guidelines:\n\n1.0: All necessary tools selected, no unnecessary tools.\n0.8-0.99: Substantially correct with minor omissions.\n0.5-0.79: Partially correct with significant issues.\n0.1-0.49: Mostly incorrect.\n0.0: Completely incorrect.\n\nAn empty tool-call list is correct only when the user's\nrequest does not require any tool.\n\nEvaluate tool selection, not whether the tools executed\nsuccessfully or produced the expected results.\n",
+                "argument_evaluation_instructions": "\nYou are an expert evaluator responsible for assessing\nthe correctness of arguments passed by an AI agent\nto its selected tools.\n\nEvaluate whether the arguments supplied to each tool\nare accurate, complete, relevant, and consistent with\nthe tool's schema and the user's intent.\n\nFollow these evaluation principles:\n\n1. Argument Accuracy:\nVerify that each supplied argument has the correct\nvalue based on the user's request and available context.\n\n2. Required Arguments:\nEnsure all required arguments specified in the\ntool description or schema are present.\n\n3. Optional Arguments:\nDo not penalize omitted optional arguments unless\nthey are necessary.\n\n4. Parameter Names:\nArgument names must match the tool's defined schema.\n\n5. Data Types:\nVerify that argument values use the expected data types.\n\n6. Context Consistency:\nArguments must be consistent with the current request,\nprevious conversation, and intermediate tool results.\n\n7. Value Correctness:\nVerify identifiers, dates, quantities, filters,\nand configurations.\n\n8. Missing Information:\nDo not reward fabricated values or assumptions when\nrequired information is unavailable.\n\n9. Extra Arguments:\nPenalize unsupported or irrelevant arguments.\n\n10. Tool-Specific Constraints:\nRespect all constraints, dependencies, validation rules,\nand requirements defined by the tool schema.\n\n11. Argument Relevance:\nArguments must contribute to the intended operation.\n\n12. Evidence-Based Evaluation:\nJudge arguments only against the supplied request,\nconversation context, intermediate results,\nand tool descriptions.\n\nScoring Guidelines:\n\n1.0: All arguments are correct and schema-compliant.\n0.8-0.99: Substantially correct with minor issues.\n0.5-0.79: Some arguments correct, significant issues.\n0.1-0.49: Most arguments incorrect or incomplete.\n0.0: Arguments fundamentally violate requirements.\n\nEvaluate argument correctness independently of whether\nthe tool executed successfully or returned expected results.\n",
+                "intermediate_step": "[]",
+                "available_tool_names": [
+                    "groww_get_positions",
+                    "groww_get_holdings"
+                ]
+            }
+        },
+        {
+            "test_case_id": 7,
+            "input": "Get the latest traded prices of Reliance and Infosys.",
+            "actual_output": "{\"tool_calls\": [{\"name\": \"groww_get_ltp\", \"args\": {\"segment\": \"cash\", \"symbols\": [\"nse_reliance\", \"nse_infy\"]}}]}",
+            "tools_called": [
+                {
+                    "name": "groww_get_ltp",
+                    "args": {
+                        "segment": "cash",
+                        "symbols": [
+                            "nse_reliance",
+                            "nse_infy"
+                        ]
+                    }
+                }
+            ],
+            "expected_tools": [
+                {
+                    "name": "groww_get_ltp",
+                    "args": {
+                        "symbols": [
+                            "nse_reliance",
+                            "nse_infy"
+                        ],
+                        "segment": "cash"
+                    }
+                }
+            ],
+            "additional_metadata": {
+                "run_id": "b538d18e-c1ee-42ba-b3cf-ea912df8e18b",
+                "source_test_case_index": 7,
+                "evaluation_instructions": "\nYou are an expert evaluator responsible for assessing\nthe correctness of tool selection by an AI agent.\n\nEvaluate whether the agent selected the appropriate tools\nbased on the user's request, available tool descriptions,\nexpected workflow, and provided context.\n\nFollow these evaluation principles:\n\n1. Tool Relevance:\nEvery selected tool must be relevant to fulfilling\nthe user's request.\n\n2. Tool Completeness:\nIdentify whether all necessary tools required to fulfill\nthe user's request have been selected.\n\n3. Unnecessary Tool Selection:\nPenalize tools that are irrelevant, redundant, or do not\ncontribute to fulfilling the user's request.\n\n4. Workflow Correctness:\nEvaluate whether the selected tools follow the logically\ncorrect sequence and dependencies.\n\n5. Context Awareness:\nConsider previous conversation steps, intermediate\nresults, and already available information.\n\n6. Tool Availability:\nEvaluate tool selection only against tools made available\nto the agent.\n\n7. Intent Understanding:\nJudge tool selection based on the user's actual intent.\n\n8. No Unnecessary Actions:\nDo not expect action-oriented tools when the user only\nrequests information, explanation, or analysis.\n\n9. Partial Correctness:\nGive partial credit when selected tools are relevant\nbut incomplete or contain minor unnecessary calls.\n\n10. Evidence-Based Evaluation:\nBase the assessment strictly on the user's request,\navailable tool descriptions, expected tool calls,\nand supplied context.\n\nScoring Guidelines:\n\n1.0: All necessary tools selected, no unnecessary tools.\n0.8-0.99: Substantially correct with minor omissions.\n0.5-0.79: Partially correct with significant issues.\n0.1-0.49: Mostly incorrect.\n0.0: Completely incorrect.\n\nAn empty tool-call list is correct only when the user's\nrequest does not require any tool.\n\nEvaluate tool selection, not whether the tools executed\nsuccessfully or produced the expected results.\n",
+                "argument_evaluation_instructions": "\nYou are an expert evaluator responsible for assessing\nthe correctness of arguments passed by an AI agent\nto its selected tools.\n\nEvaluate whether the arguments supplied to each tool\nare accurate, complete, relevant, and consistent with\nthe tool's schema and the user's intent.\n\nFollow these evaluation principles:\n\n1. Argument Accuracy:\nVerify that each supplied argument has the correct\nvalue based on the user's request and available context.\n\n2. Required Arguments:\nEnsure all required arguments specified in the\ntool description or schema are present.\n\n3. Optional Arguments:\nDo not penalize omitted optional arguments unless\nthey are necessary.\n\n4. Parameter Names:\nArgument names must match the tool's defined schema.\n\n5. Data Types:\nVerify that argument values use the expected data types.\n\n6. Context Consistency:\nArguments must be consistent with the current request,\nprevious conversation, and intermediate tool results.\n\n7. Value Correctness:\nVerify identifiers, dates, quantities, filters,\nand configurations.\n\n8. Missing Information:\nDo not reward fabricated values or assumptions when\nrequired information is unavailable.\n\n9. Extra Arguments:\nPenalize unsupported or irrelevant arguments.\n\n10. Tool-Specific Constraints:\nRespect all constraints, dependencies, validation rules,\nand requirements defined by the tool schema.\n\n11. Argument Relevance:\nArguments must contribute to the intended operation.\n\n12. Evidence-Based Evaluation:\nJudge arguments only against the supplied request,\nconversation context, intermediate results,\nand tool descriptions.\n\nScoring Guidelines:\n\n1.0: All arguments are correct and schema-compliant.\n0.8-0.99: Substantially correct with minor issues.\n0.5-0.79: Some arguments correct, significant issues.\n0.1-0.49: Most arguments incorrect or incomplete.\n0.0: Arguments fundamentally violate requirements.\n\nEvaluate argument correctness independently of whether\nthe tool executed successfully or returned expected results.\n",
+                "intermediate_step": "[]",
+                "available_tool_names": [
+                    "groww_get_ltp",
+                    "groww_get_quote"
+                ]
+            }
+        },
+        {
+            "test_case_id": 8,
+            "input": "Sell 2 shares of INFY at market price.",
+            "actual_output": "{\"tool_calls\": [{\"name\": \"groww_place_order\", \"args\": {\"order\": {\"product\": \"cnc\", \"segment\": \"cash\", \"exchange\": \"nse\", \"trading_symbol\": \"infy\", \"order_type\": \"market\", \"quantity\": 2, \"validity\": \"day\", \"transaction_type\": \"sell\"}}}]}",
+            "tools_called": [
+                {
+                    "name": "groww_place_order",
+                    "args": {
+                        "order": {
+                            "product": "cnc",
+                            "segment": "cash",
+                            "exchange": "nse",
+                            "trading_symbol": "infy",
+                            "order_type": "market",
+                            "quantity": 2,
+                            "validity": "day",
+                            "transaction_type": "sell"
+                        }
+                    }
+                }
+            ],
+            "expected_tools": [
+                {
+                    "name": "groww_place_order",
+                    "args": {
+                        "order": {
+                            "exchange": "nse",
+                            "order_type": "market",
+                            "product": "cnc",
+                            "quantity": 2,
+                            "segment": "cash",
+                            "trading_symbol": "infy",
+                            "transaction_type": "sell"
+                        }
+                    }
+                }
+            ],
+            "additional_metadata": {
+                "run_id": "b538d18e-c1ee-42ba-b3cf-ea912df8e18b",
+                "source_test_case_index": 8,
+                "evaluation_instructions": "\nYou are an expert evaluator responsible for assessing\nthe correctness of tool selection by an AI agent.\n\nEvaluate whether the agent selected the appropriate tools\nbased on the user's request, available tool descriptions,\nexpected workflow, and provided context.\n\nFollow these evaluation principles:\n\n1. Tool Relevance:\nEvery selected tool must be relevant to fulfilling\nthe user's request.\n\n2. Tool Completeness:\nIdentify whether all necessary tools required to fulfill\nthe user's request have been selected.\n\n3. Unnecessary Tool Selection:\nPenalize tools that are irrelevant, redundant, or do not\ncontribute to fulfilling the user's request.\n\n4. Workflow Correctness:\nEvaluate whether the selected tools follow the logically\ncorrect sequence and dependencies.\n\n5. Context Awareness:\nConsider previous conversation steps, intermediate\nresults, and already available information.\n\n6. Tool Availability:\nEvaluate tool selection only against tools made available\nto the agent.\n\n7. Intent Understanding:\nJudge tool selection based on the user's actual intent.\n\n8. No Unnecessary Actions:\nDo not expect action-oriented tools when the user only\nrequests information, explanation, or analysis.\n\n9. Partial Correctness:\nGive partial credit when selected tools are relevant\nbut incomplete or contain minor unnecessary calls.\n\n10. Evidence-Based Evaluation:\nBase the assessment strictly on the user's request,\navailable tool descriptions, expected tool calls,\nand supplied context.\n\nScoring Guidelines:\n\n1.0: All necessary tools selected, no unnecessary tools.\n0.8-0.99: Substantially correct with minor omissions.\n0.5-0.79: Partially correct with significant issues.\n0.1-0.49: Mostly incorrect.\n0.0: Completely incorrect.\n\nAn empty tool-call list is correct only when the user's\nrequest does not require any tool.\n\nEvaluate tool selection, not whether the tools executed\nsuccessfully or produced the expected results.\n",
+                "argument_evaluation_instructions": "\nYou are an expert evaluator responsible for assessing\nthe correctness of arguments passed by an AI agent\nto its selected tools.\n\nEvaluate whether the arguments supplied to each tool\nare accurate, complete, relevant, and consistent with\nthe tool's schema and the user's intent.\n\nFollow these evaluation principles:\n\n1. Argument Accuracy:\nVerify that each supplied argument has the correct\nvalue based on the user's request and available context.\n\n2. Required Arguments:\nEnsure all required arguments specified in the\ntool description or schema are present.\n\n3. Optional Arguments:\nDo not penalize omitted optional arguments unless\nthey are necessary.\n\n4. Parameter Names:\nArgument names must match the tool's defined schema.\n\n5. Data Types:\nVerify that argument values use the expected data types.\n\n6. Context Consistency:\nArguments must be consistent with the current request,\nprevious conversation, and intermediate tool results.\n\n7. Value Correctness:\nVerify identifiers, dates, quantities, filters,\nand configurations.\n\n8. Missing Information:\nDo not reward fabricated values or assumptions when\nrequired information is unavailable.\n\n9. Extra Arguments:\nPenalize unsupported or irrelevant arguments.\n\n10. Tool-Specific Constraints:\nRespect all constraints, dependencies, validation rules,\nand requirements defined by the tool schema.\n\n11. Argument Relevance:\nArguments must contribute to the intended operation.\n\n12. Evidence-Based Evaluation:\nJudge arguments only against the supplied request,\nconversation context, intermediate results,\nand tool descriptions.\n\nScoring Guidelines:\n\n1.0: All arguments are correct and schema-compliant.\n0.8-0.99: Substantially correct with minor issues.\n0.5-0.79: Some arguments correct, significant issues.\n0.1-0.49: Most arguments incorrect or incomplete.\n0.0: Arguments fundamentally violate requirements.\n\nEvaluate argument correctness independently of whether\nthe tool executed successfully or returned expected results.\n",
+                "intermediate_step": "[]",
+                "available_tool_names": [
+                    "groww_place_order",
+                    "groww_get_balance"
+                ]
+            }
+        },
+        {
+            "test_case_id": 9,
+            "input": "Check whether I can afford 4 shares of TCS at Rs. 3500 each with my available balance.",
+            "actual_output": "{\"tool_calls\": []}",
+            "tools_called": [],
+            "expected_tools": [
+                {
+                    "name": "stock_price_budget_check",
+                    "args": {
+                        "symbols": "tcs",
+                        "quantity": 4,
+                        "price": 3500,
+                        "balance_available": 20000
+                    }
+                }
+            ],
+            "additional_metadata": {
+                "run_id": "b538d18e-c1ee-42ba-b3cf-ea912df8e18b",
+                "source_test_case_index": 9,
+                "evaluation_instructions": "\nYou are an expert evaluator responsible for assessing\nthe correctness of tool selection by an AI agent.\n\nEvaluate whether the agent selected the appropriate tools\nbased on the user's request, available tool descriptions,\nexpected workflow, and provided context.\n\nFollow these evaluation principles:\n\n1. Tool Relevance:\nEvery selected tool must be relevant to fulfilling\nthe user's request.\n\n2. Tool Completeness:\nIdentify whether all necessary tools required to fulfill\nthe user's request have been selected.\n\n3. Unnecessary Tool Selection:\nPenalize tools that are irrelevant, redundant, or do not\ncontribute to fulfilling the user's request.\n\n4. Workflow Correctness:\nEvaluate whether the selected tools follow the logically\ncorrect sequence and dependencies.\n\n5. Context Awareness:\nConsider previous conversation steps, intermediate\nresults, and already available information.\n\n6. Tool Availability:\nEvaluate tool selection only against tools made available\nto the agent.\n\n7. Intent Understanding:\nJudge tool selection based on the user's actual intent.\n\n8. No Unnecessary Actions:\nDo not expect action-oriented tools when the user only\nrequests information, explanation, or analysis.\n\n9. Partial Correctness:\nGive partial credit when selected tools are relevant\nbut incomplete or contain minor unnecessary calls.\n\n10. Evidence-Based Evaluation:\nBase the assessment strictly on the user's request,\navailable tool descriptions, expected tool calls,\nand supplied context.\n\nScoring Guidelines:\n\n1.0: All necessary tools selected, no unnecessary tools.\n0.8-0.99: Substantially correct with minor omissions.\n0.5-0.79: Partially correct with significant issues.\n0.1-0.49: Mostly incorrect.\n0.0: Completely incorrect.\n\nAn empty tool-call list is correct only when the user's\nrequest does not require any tool.\n\nEvaluate tool selection, not whether the tools executed\nsuccessfully or produced the expected results.\n",
+                "argument_evaluation_instructions": "\nYou are an expert evaluator responsible for assessing\nthe correctness of arguments passed by an AI agent\nto its selected tools.\n\nEvaluate whether the arguments supplied to each tool\nare accurate, complete, relevant, and consistent with\nthe tool's schema and the user's intent.\n\nFollow these evaluation principles:\n\n1. Argument Accuracy:\nVerify that each supplied argument has the correct\nvalue based on the user's request and available context.\n\n2. Required Arguments:\nEnsure all required arguments specified in the\ntool description or schema are present.\n\n3. Optional Arguments:\nDo not penalize omitted optional arguments unless\nthey are necessary.\n\n4. Parameter Names:\nArgument names must match the tool's defined schema.\n\n5. Data Types:\nVerify that argument values use the expected data types.\n\n6. Context Consistency:\nArguments must be consistent with the current request,\nprevious conversation, and intermediate tool results.\n\n7. Value Correctness:\nVerify identifiers, dates, quantities, filters,\nand configurations.\n\n8. Missing Information:\nDo not reward fabricated values or assumptions when\nrequired information is unavailable.\n\n9. Extra Arguments:\nPenalize unsupported or irrelevant arguments.\n\n10. Tool-Specific Constraints:\nRespect all constraints, dependencies, validation rules,\nand requirements defined by the tool schema.\n\n11. Argument Relevance:\nArguments must contribute to the intended operation.\n\n12. Evidence-Based Evaluation:\nJudge arguments only against the supplied request,\nconversation context, intermediate results,\nand tool descriptions.\n\nScoring Guidelines:\n\n1.0: All arguments are correct and schema-compliant.\n0.8-0.99: Substantially correct with minor issues.\n0.5-0.79: Some arguments correct, significant issues.\n0.1-0.49: Most arguments incorrect or incomplete.\n0.0: Arguments fundamentally violate requirements.\n\nEvaluate argument correctness independently of whether\nthe tool executed successfully or returned expected results.\n",
+                "intermediate_step": "['Balance check successful. Available balance is Rs. 20000. The requested stock quantity and price are known. Check whether the total purchase cost fits the available balance.']",
+                "available_tool_names": [
+                    "groww_get_balance",
+                    "stock_price_budget_check",
+                    "groww_place_order"
+                ]
+            }
+        }
+    ]
+}

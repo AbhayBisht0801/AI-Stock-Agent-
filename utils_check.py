@@ -32,8 +32,8 @@ client = MultiServerMCPClient(
         }
     }
 )
-model = ChatGoogleGenerativeAI(model="gemini-3.5-flash")
-# model= ChatOpenAI(model="gpt-4o-mini")
+model = ChatGoogleGenerativeAI(model="gemini-3.5-flash-lite")
+# model= ChatOpenAI(model="gpt-5-nano")
 DANGEROUS_TOOLS = [
     "groww_place_order",
     "groww_modify_order",
@@ -69,6 +69,7 @@ class AgentState(TypedDict):
     intermediate_step:Annotated[list[BaseMessage], add]
     aborted: bool
     router_fulfilled: bool
+    Tool_executed: list[str]
 class tool_result(BaseModel):
     tool: list[str]
 planner_model = model.with_structured_output(ExecutionPlan, strict=False)
@@ -100,11 +101,7 @@ Final output should be in json as below
     values = list(result.dict().values())[0]
     print(values)
 
-    return {"Tool_available":{
-        key: value
-        for key, value in tool_description.items()
-        if key in values
-    }}
+    return {"Tool_available":values}
 async def planner_node(state: AgentState):
     user_request = ""
 
@@ -112,6 +109,7 @@ async def planner_node(state: AgentState):
     for message in reversed(state["input_message"]):
         if isinstance(message, HumanMessage):
             user_request = message.content
+            print(f"User Request: {user_request}")
             break
 
     # Get latest execution history
@@ -125,177 +123,54 @@ async def planner_node(state: AgentState):
     # Get tools
     mcp_tools = await client.get_tools()
     tools = mcp_tools + [print_report, stock_price_budget_check]
-
+    Tools_available={key: value
+            for key, value in tool_description.items()
+            if key in state['Tool_available']}
+    tools = [
+    tool
+    for tool in tools
+    if tool.name in state['Tool_available']
+]
     # Bind tools to the model
     planner_model = model.bind_tools(tools)
 
     planner_prompt = f"""
-You are the Tool Execution Agent for an AI stock analysis platform.
+You are the Tool Execution Agent for an AI stock analysis platform running inside a LangGraph workflow.
 
-Your job is to decide and execute the NEXT SINGLE TOOL ACTION required
-to fulfill the user's request.
+Your task is to determine and execute the next single tool action needed to fulfill the user’s request.
 
-You are running inside a LangGraph workflow.
+Execution Rules
+Review the user request, execution history, previous tool results, and available tools.
+Identify only the action required now . Never plan future steps or make multiple tool calls.
+Understand the history results and use them to inform your next action. Do not repeat completed actions.
+If a tool is required, generate exactly one native tool call supported by the available tools and valid arguments.
+If no tool is needed, return a normal response. Do not call tools unnecessarily or repeat completed actions.
+BUY Order Safety
+Before any BUY order, a balance-check tool must have successfully executed.
+Verify the returned balance is sufficient for the purchase.
+If no balance check exists, call the balance-check tool first.
+If funds are insufficient or cannot be confirmed, never place the BUY order.
+Tool and Data Rules
+Use only available tools and supported arguments.
+Use values from the user request or previous tool results. Never fabricate arguments, IDs, or placeholder values.
+Reuse previous results unless fresh information is explicitly required.
+The exchange for all stock orders is NSE.
+Completion Rule
 
-The output of this node is sent directly to a LangGraph ToolNode.
-Therefore, when a tool is required, you MUST generate a native tool call
-using the tools available to you.
+If the request is already fulfilled or no further tool action is required, return a normal response without a tool call.
 
-Do NOT generate a textual plan.
-Do NOT describe the tool call in natural language.
-Do NOT generate multiple tool calls.
-Do NOT answer the user directly when a tool is required.
+Execution Context
 
-Your response must contain AT MOST ONE tool call.
+History: {previous_messages}
 
---------------------------------------------------
-EXECUTION MODEL
---------------------------------------------------
+User Request: {user_request}
 
-This agent operates iteratively.
-
-On every invocation:
-
-1. Read the original user request.
-2. Read the latest execution history.
-3. Inspect what tools have already executed and their results.
-4. Determine what information/action is currently missing.
-5. If another tool is required, call EXACTLY ONE tool.
-6. If the request has already been fulfilled, do not call a tool.
-
-The next invocation will happen after the selected tool has executed
-and its result has been added to the execution history.
-
-Never pre-plan future actions.
-
---------------------------------------------------
-BUY ORDER RULES
---------------------------------------------------
-
-Stock purchases are intended for long-term investment, not intraday trading.
-
-Before placing ANY BUY order:
-
-1. A balance-check tool MUST have successfully executed.
-2. Inspect the balance-check result.
-3. Determine whether sufficient funds are available.
-4. Only if sufficient funds are confirmed may you call the BUY-order tool.
-5. If funds are insufficient, NEVER call the BUY-order tool.
-
-If a balance check has NOT been executed yet and the user wants to buy,
-the balance-check tool is the immediate next action.
-
-Do not assume that sufficient balance exists.
-
---------------------------------------------------
-EXECUTION HISTORY RULES
---------------------------------------------------
-
-Previous tool results are authoritative.
-
-Reuse information already obtained from previous tool executions.
-
-Do not call a tool again if its result already contains the information
-required for the current action, unless fresh information is explicitly
-required.
-
-When a previous tool result provides a value required by another tool,
-use that value.
-
---------------------------------------------------
-TOOL RULES
---------------------------------------------------
-
-Use ONLY tools that are actually available to you.
-
-Never invent a tool name.
-
-Use ONLY arguments supported by the selected tool.
-
-Tool arguments must come from:
-
-- The user's request, OR
-- Previous tool results.
-
-Never fabricate required values.
-
-Never use placeholder values such as:
-
-- "UNKNOWN"
-- 0
-- null
-- ""
-- fake IDs
-
-unless that value is explicitly valid for the selected tool.
-
-The exchange for stock orders is ALWAYS:
-
-NSE
-
---------------------------------------------------
-MINIMALITY
---------------------------------------------------
-
-Only perform the action that is required RIGHT NOW.
-
-Do not:
-
-- Generate multiple tool calls
-- Generate a future plan
-- Perform unnecessary verification
-- Repeat an already completed lookup
-- Call tools simply because they are available
-- Guess what the next invocation might need
-
---------------------------------------------------
-COMPLETION
---------------------------------------------------
-
-If the user's request can already be fulfilled using:
-
-- The original user request
-- Previous tool results
-- Existing execution state
-
-then DO NOT call another tool.
-
-Instead, return a normal AI response indicating that no further
-tool execution is required.
-
---------------------------------------------------
-CURRENT EXECUTION HISTORY
---------------------------------------------------
-
-{previous_messages}
-
---------------------------------------------------
-USER REQUEST
---------------------------------------------------
-
-{user_request}
-
---------------------------------------------------
-AVAILABLE TOOLS
---------------------------------------------------
-
-{state['Tool_available']}
-
---------------------------------------------------
-FINAL REQUIREMENTS
---------------------------------------------------
-
-- Maximum ONE tool call.
-- Never generate multiple tool calls.
-- Never generate a multi-step plan.
-- Never invent tools.
-- Never invent required arguments.
-- Use previous tool results whenever possible.
-- For BUY orders, balance validation is mandatory.
-- If no tool is required, return a normal AI response.
-- When a tool is required, generate a native tool call because your
-  output will be passed directly to LangGraph's ToolNode.
-"""
+Available Tools: {Tools_available}
+Output Requirements
+Maximum one tool call per invocation.
+No textual plans or explanations when a tool call is required.
+Ensure the output is a valid native tool call for LangGraph's ToolNode.
+Never invent tools, arguments, or future actions."""
 
     # Invoke model
     ai_message = await planner_model.ainvoke(planner_prompt)
@@ -307,10 +182,8 @@ FINAL REQUIREMENTS
     print(ai_message.tool_calls)
 
     return {
-        "intermediate_step": [ai_message],
-        "current_step": 0,
-        "results": {},
-    }
+    "intermediate_step": [ai_message],
+}
 
 async def human_approval_node(state: AgentState):
     print('Failing here ')
@@ -333,12 +206,13 @@ async def human_approval_node(state: AgentState):
     # Only ask confirmation for dangerous tools
     if tool_name not in DANGEROUS_TOOLS:
         return {}
-
+    prompt=f"""Given the tool name and its arguments, ask the user for confirmation to execute the tool. If the user confirms, return "yes". If the user denies, return "no". Do not provide any other information or explanation. The tool name is {tool_name} and its arguments are {tool_args}."""
+    
     approval = interrupt({
         "type": "tool_confirmation",
         "tool": tool_name,
         "arguments": tool_args,
-        "message": f"Do you want to execute {tool_name}?"
+        "message": f"{model.invoke(prompt)}"
     })
 
     if approval != "yes":
@@ -351,7 +225,7 @@ async def human_approval_node(state: AgentState):
             ]
         }
 
-    return {}
+    return {'Tool_executed':[tool_name]}
 def route_after_planner(state: AgentState):
 
     messages = state["intermediate_step"]
@@ -396,9 +270,10 @@ LATEST TOOL OUTPUT
 ========================
 ROUTING RULES
 ========================
-
+0. If there is authentication issue or any other issue that prevents the execution of the tool, return fulfilled=True and final_message=Sorry, I am unable to execute the requested action due to an authentication issue. Please check your credentials and try again.
 1. Set `fulfilled=True` ONLY when the user's original request has been completely
    satisfied and no additional tool execution is required.
+    Note:Note if the request is to buy stock and the user balance is 0 then stop as not transaction can be done so return fulfilled=True and return in final_message=Insufficient balance to buy 10 shares of RELIANCE.
 
 2. Set `fulfilled=False` when:
    - The latest tool only provides information needed for a subsequent action.
@@ -463,6 +338,7 @@ User request:
 
 Latest tool output:
 "Current RELIANCE price is ₹2,500."
+
 
 This is also NOT fulfilled.
 

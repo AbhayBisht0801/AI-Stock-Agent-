@@ -5,7 +5,9 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
-    "deepeval>=4.2.3",
+    "deepeval>=3.7.0",
+    "dotenv>=0.9.9",
+    "fastapi>=0.150.0",
     "growwapi>=1.5.0",
     "langchain>=1.4.1",
     "langchain-community>=0.4.2",
@@ -18,5 +20,6 @@ dependencies = [
     "pandas>=2.3.3",
     "pydantic>=2.13.5",
     "pyotp>=2.10.0",
+    "typesafe-sdk>=0.7.5",
     "yfinance>=1.7.0",
 ]

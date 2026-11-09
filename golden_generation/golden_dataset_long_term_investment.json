@@ -1,0 +1,454 @@
+{
+  "task_scope": "long_term_equity_investment",
+  "description": "Golden dataset for a planner agent handling long-term equity investments. Regular equity orders and conditional smart orders (GTT/OCO) are in scope. Smart-order management and pending regular equity-order management are also in scope. F&O/options workflows are outside scope.",
+  "golden_dataset": [
+    {
+      "user_input": "Show me my Groww profile.",
+      "expected_tools": [
+        "groww_get_profile"
+      ]
+    },
+    {
+      "user_input": "What are my Groww account details?",
+      "expected_tools": [
+        "groww_get_profile"
+      ]
+    },
+    {
+      "user_input": "How much money do I currently have available for investing?",
+      "expected_tools": [
+        "groww_get_balance"
+      ]
+    },
+    {
+      "user_input": "Show my available Groww balance.",
+      "expected_tools": [
+        "groww_get_balance"
+      ]
+    },
+    {
+      "user_input": "Show me all the stocks I currently own.",
+      "expected_tools": [
+        "groww_get_holdings"
+      ]
+    },
+    {
+      "user_input": "What stocks are currently in my long-term portfolio?",
+      "expected_tools": [
+        "groww_get_holdings"
+      ]
+    },
+    {
+      "user_input": "Do I currently own Reliance?",
+      "expected_tools": [
+        "groww_get_holdings"
+      ]
+    },
+    {
+      "user_input": "How many shares of TCS do I own?",
+      "expected_tools": [
+        "groww_get_holdings"
+      ]
+    },
+    {
+      "user_input": "Show my Infosys holding.",
+      "expected_tools": [
+        "groww_get_holdings"
+      ]
+    },
+    {
+      "user_input": "Buy 20 shares of TCS for long-term investment.",
+      "expected_tools": [
+        "groww_get_balance",
+        "stock_price_budget_check",
+        "groww_place_order"
+      ]
+    },
+    {
+      "user_input": "Buy 10 shares of Reliance for my long-term portfolio.",
+      "expected_tools": [
+        "groww_get_balance",
+        "stock_price_budget_check",
+        "groww_place_order"
+      ]
+    },
+    {
+      "user_input": "Invest in 100 shares of Tata Motors for the long term.",
+      "expected_tools": [
+        "groww_get_balance",
+        "stock_price_budget_check",
+        "groww_place_order"
+      ]
+    },
+    {
+      "user_input": "Buy 5 shares of Infosys and hold them for several years.",
+      "expected_tools": [
+        "groww_get_balance",
+        "stock_price_budget_check",
+        "groww_place_order"
+      ]
+    },
+    {
+      "user_input": "Buy 50 shares of ITC for my long-term portfolio.",
+      "expected_tools": [
+        "groww_get_balance",
+        "stock_price_budget_check",
+        "groww_place_order"
+      ]
+    },
+    {
+      "user_input": "Can I afford to buy 500 shares of Tata Motors for long-term investment?",
+      "expected_tools": [
+        "groww_get_balance",
+        "stock_price_budget_check"
+      ]
+    },
+    {
+      "user_input": "Check whether I have enough money to invest in 100 shares of Infosys.",
+      "expected_tools": [
+        "groww_get_balance",
+        "stock_price_budget_check"
+      ]
+    },
+    {
+      "user_input": "Before buying 20 TCS shares, check whether I can afford the investment.",
+      "expected_tools": [
+        "groww_get_balance",
+        "stock_price_budget_check"
+      ]
+    },
+    {
+      "user_input": "Sell 10 shares of Reliance from my long-term portfolio.",
+      "expected_tools": [
+        "groww_get_holdings",
+        "groww_place_order"
+      ]
+    },
+    {
+      "user_input": "Sell all my HDFC Bank shares from my long-term holdings.",
+      "expected_tools": [
+        "groww_get_holdings",
+        "groww_place_order"
+      ]
+    },
+    {
+      "user_input": "I want to sell 20 shares of TCS. First check whether I own enough shares.",
+      "expected_tools": [
+        "groww_get_holdings",
+        "groww_place_order"
+      ]
+    },
+    {
+      "user_input": "Check whether I own Reliance and sell 10 shares if I do.",
+      "expected_tools": [
+        "groww_get_holdings",
+        "groww_place_order"
+      ]
+    },
+    {
+      "user_input": "Exit my long-term Tata Motors investment and sell all the shares I own.",
+      "expected_tools": [
+        "groww_get_holdings",
+        "groww_place_order"
+      ]
+    },
+    {
+      "user_input": "What is the current price of Reliance?",
+      "expected_tools": [
+        "groww_get_ltp"
+      ]
+    },
+    {
+      "user_input": "What is the current LTP of TCS?",
+      "expected_tools": [
+        "groww_get_ltp"
+      ]
+    },
+    {
+      "user_input": "Get the latest price of Infosys.",
+      "expected_tools": [
+        "groww_get_ltp"
+      ]
+    },
+    {
+      "user_input": "What are the current prices of Reliance and TCS?",
+      "expected_tools": [
+        "groww_get_ltp"
+      ]
+    },
+    {
+      "user_input": "Get the latest quote for Reliance for evaluating it as a long-term investment.",
+      "expected_tools": [
+        "groww_get_quote"
+      ]
+    },
+    {
+      "user_input": "Show me the latest quote for TCS.",
+      "expected_tools": [
+        "groww_get_quote"
+      ]
+    },
+    {
+      "user_input": "Give me the OHLC data for Infosys.",
+      "expected_tools": [
+        "groww_get_ohlc"
+      ]
+    },
+    {
+      "user_input": "Analyze Reliance for the last 6 months and give me a performance report.",
+      "expected_tools": [
+        "print_report"
+      ]
+    },
+    {
+      "user_input": "Give me a 1-month performance report for Adani Power.",
+      "expected_tools": [
+        "print_report"
+      ]
+    },
+    {
+      "user_input": "Analyze TCS over the last 12 months.",
+      "expected_tools": [
+        "print_report"
+      ]
+    },
+    {
+      "user_input": "How has Infosys performed over the last 6 months?",
+      "expected_tools": [
+        "print_report"
+      ]
+    },
+    {
+      "user_input": "Give me a 3-month performance report for Reliance before I consider investing long term.",
+      "expected_tools": [
+        "print_report"
+      ]
+    },
+    {
+      "user_input": "What is Reliance's current price and give me a 6-month performance report?",
+      "expected_tools": [
+        "groww_get_ltp",
+        "print_report"
+      ]
+    },
+    {
+      "user_input": "Get TCS's latest quote and analyze its performance for the last 6 months.",
+      "expected_tools": [
+        "groww_get_quote",
+        "print_report"
+      ]
+    },
+    {
+      "user_input": "Analyze Reliance for 6 months and then tell me its current LTP.",
+      "expected_tools": [
+        "print_report",
+        "groww_get_ltp"
+      ]
+    },
+    {
+      "user_input": "Check my holdings and tell me whether I own Reliance, then tell me its current price.",
+      "expected_tools": [
+        "groww_get_holdings",
+        "groww_get_ltp"
+      ]
+    },
+    {
+      "user_input": "Check my holdings and give me the current price of each stock I own.",
+      "expected_tools": [
+        "groww_get_holdings",
+        "groww_get_ltp"
+      ]
+    },
+    {
+      "user_input": "I want to sell Reliance. First tell me how many shares I own and its current price.",
+      "expected_tools": [
+        "groww_get_holdings",
+        "groww_get_ltp"
+      ]
+    },
+    {
+      "user_input": "Buy 10 shares of Reliance for long-term investment after checking its latest price and whether I have enough balance.",
+      "expected_tools": [
+        "groww_get_ltp",
+        "groww_get_balance",
+        "stock_price_budget_check",
+        "groww_place_order"
+      ]
+    },
+    {
+      "user_input": "Before buying 20 shares of TCS for long-term investment, get its latest price and check whether I can afford it.",
+      "expected_tools": [
+        "groww_get_ltp",
+        "groww_get_balance",
+        "stock_price_budget_check"
+      ]
+    },
+    {
+      "user_input": "Buy Reliance for my long-term portfolio when its price reaches 2400.",
+      "expected_tools": [
+        "groww_create_smart_order"
+      ]
+    },
+    {
+      "user_input": "Create a GTT to buy 10 shares of TCS when it reaches 3500 for long-term investment.",
+      "expected_tools": [
+        "groww_create_smart_order"
+      ]
+    },
+    {
+      "user_input": "I want to accumulate Infosys long term. Buy 20 shares when the price falls to 1500.",
+      "expected_tools": [
+        "groww_create_smart_order"
+      ]
+    },
+    {
+      "user_input": "Set up a conditional long-term buy for 50 shares of ITC at 400.",
+      "expected_tools": [
+        "groww_create_smart_order"
+      ]
+    },
+    {
+      "user_input": "Sell 20 Reliance shares from my long-term holdings when the price reaches 3000.",
+      "expected_tools": [
+        "groww_get_holdings",
+        "groww_create_smart_order"
+      ]
+    },
+    {
+      "user_input": "Create a GTT to sell my TCS shares when the price reaches 4500.",
+      "expected_tools": [
+        "groww_get_holdings",
+        "groww_create_smart_order"
+      ]
+    },
+    {
+      "user_input": "Set a long-term exit order to sell 10 Infosys shares at 2000.",
+      "expected_tools": [
+        "groww_get_holdings",
+        "groww_create_smart_order"
+      ]
+    },
+    {
+      "user_input": "For my long-term Reliance holding, create an OCO with a target of 3000 and stop loss of 2500.",
+      "expected_tools": [
+        "groww_get_holdings",
+        "groww_create_smart_order"
+      ]
+    },
+    {
+      "user_input": "Set a target and stop loss for my TCS long-term holding using an OCO order.",
+      "expected_tools": [
+        "groww_get_holdings",
+        "groww_create_smart_order"
+      ]
+    },
+    {
+      "user_input": "Show me all my active GTT and OCO orders.",
+      "expected_tools": [
+        "groww_get_smart_order_list"
+      ]
+    },
+    {
+      "user_input": "List my current smart orders.",
+      "expected_tools": [
+        "groww_get_smart_order_list"
+      ]
+    },
+    {
+      "user_input": "Show my active conditional orders for long-term investments.",
+      "expected_tools": [
+        "groww_get_smart_order_list"
+      ]
+    },
+    {
+      "user_input": "Cancel my Reliance GTT order.",
+      "expected_tools": [
+        "groww_get_smart_order_list",
+        "groww_cancel_smart_order"
+      ]
+    },
+    {
+      "user_input": "Cancel my TCS smart order.",
+      "expected_tools": [
+        "groww_get_smart_order_list",
+        "groww_cancel_smart_order"
+      ]
+    },
+    {
+      "user_input": "Modify my pending long-term equity order for Reliance.",
+      "expected_tools": [
+        "groww_modify_order"
+      ]
+    },
+    {
+      "user_input": "Change the price of my pending TCS investment order.",
+      "expected_tools": [
+        "groww_modify_order"
+      ]
+    },
+    {
+      "user_input": "Cancel my pending Reliance equity investment order.",
+      "expected_tools": [
+        "groww_cancel_order"
+      ]
+    },
+    {
+      "user_input": "Cancel my pending long-term stock order.",
+      "expected_tools": [
+        "groww_cancel_order"
+      ]
+    },
+    {
+      "user_input": "Show my holdings and available balance.",
+      "expected_tools": [
+        "groww_get_holdings",
+        "groww_get_balance"
+      ]
+    },
+    {
+      "user_input": "Check my balance and whether I own Reliance.",
+      "expected_tools": [
+        "groww_get_balance",
+        "groww_get_holdings"
+      ]
+    },
+    {
+      "user_input": "I want to add 10 more Reliance shares to my long-term portfolio. Check my existing holding and then buy them.",
+      "expected_tools": [
+        "groww_get_holdings",
+        "groww_get_balance",
+        "stock_price_budget_check",
+        "groww_place_order"
+      ]
+    },
+    {
+      "user_input": "Buy 20 Infosys shares for long-term investment only if I don't already own any Infosys.",
+      "expected_tools": [
+        "groww_get_holdings",
+        "groww_get_balance",
+        "stock_price_budget_check",
+        "groww_place_order"
+      ]
+    },
+    {
+      "user_input": "Check my holdings and sell all my Reliance shares if I own them.",
+      "expected_tools": [
+        "groww_get_holdings",
+        "groww_place_order"
+      ]
+    },
+    {
+      "user_input": "I want to buy Reliance long term at 2400. First check whether I have enough balance, then create the conditional order.",
+      "expected_tools": [
+        "groww_get_balance",
+        "stock_price_budget_check",
+        "groww_create_smart_order"
+      ]
+    }
+  ],
+  "out_of_scope_tools": [
+    "groww_get_positions",
+    "groww_get_greeks",
+    "groww_get_contracts"
+  ]
+}

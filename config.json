@@ -512,7 +512,7 @@
     }
   },
   "print_report": {
-    "description": "Take input Stock name Capitalized stock name input like Adani Power is the stock name it should be passed as ADANIPOWER.NS\n    with the duration in which Ananlysis need to been done like 1 month or 6  month so on the the input is number of months.\n    This Tool Generates the Stock performance report how good the stock is",
+    "description": "This Tool Generates the Stock performance report how good the stock is.Take input Stock name Capitalized stock name input like Adani Power is the stock name it should be passed as ADANIPOWER.NS\n    with the duration in which Ananlysis need to been done like 1 month or 6  month so on the the input is number of months.\n    ",
     "parameters": {
       "properties": {
         "ticker": {
@@ -533,7 +533,7 @@
     "description": "Checks if the total cost of buying a stock is within the available balance",
     "parameters":{
       "properties":{
-        "symbols":{"type":"string"},
+        "symbol":{"type":"string"},
         "quantity":{"type":"integer"},
         "price":{"type":"float"},
         "balance_available":{"type":"float"}
